@@ -1,2 +1,2 @@
-![Ember](artifacts/ember.png)
+![Ember](assets/ember.png)
 # Ember
