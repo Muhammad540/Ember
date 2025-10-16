@@ -15,6 +15,8 @@ void Ember::runFile(const std::string& path) {
     std::stringstream buffer;
     buffer << file.rdbuf();
     run(buffer.str());
+
+    if (hadError) std::exit(65);
 }
 
 void Ember::runPrompt() {
@@ -26,6 +28,7 @@ void Ember::runPrompt() {
             break;
         }
         run(line);
+        hadError = false;
     }
 }
 
@@ -40,4 +43,13 @@ void Ember::run(const std::string& source){
 
     //TODO: placeholder until scanner is implemented (Remove it)
     std::cout << "Running: " << source << std::endl;
+}
+
+void Ember::error(int line, const std::string& message) {
+    report(line, "", message);
+}
+
+void Ember::report(int line, const std::string& where, const std::string& message) {
+    std::cerr << "[Line " << line << "] Error" << where << ": " << message << std::endl;
+    hadError = true;
 }
